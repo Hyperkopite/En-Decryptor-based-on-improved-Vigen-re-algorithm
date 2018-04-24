@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1524594569 source:d:\codeblocks\works\temp\cipher_sub\main.cpp
+	<iostream>
+	<fstream>
+	<stdlib.h>
+
