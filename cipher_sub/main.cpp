@@ -9,7 +9,7 @@ int main()
     char sub [10];
     while(true)
         {
-            cout << "subprocess is running" << endl;
+            cout << "done." << endl;
             ifstream in("sub.dat");
             if (!in.is_open())
                 {
