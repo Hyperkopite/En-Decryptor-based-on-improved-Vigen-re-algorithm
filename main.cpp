@@ -1,5 +1,5 @@
 /** @todo (Itsuki Fujii#1#): Need to be fixed:
-*fixed*1.加密结果为单行时数据过长的截断问题。???
+*fixed*1.加密结果为单行时数据过长的截断问题。
 *fixed*2.重复进行加解密时发生的错误。
 *fixed*3.fgets()读取密文中换行后第一个字符时发生错误->该字符会被错误地读取为ASCII = 1
 *fixed*4.单行加密时密文出现换行符的问题*/
@@ -8,6 +8,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <windows.h>
+#include <io.h>
+
 #define key_length 5
 #define mod 98
 #define mod_single_line 96
@@ -19,18 +22,23 @@ char alphabet [mx] = "\x01\x0a\x0d\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2a\x
 
 void sub()
 {
-    FILE *sub;
-    sub = fopen("sub.dat", "w+");
-    char r [2] = "r";
-    fwrite(r, sizeof(char), sizeof(r), sub);
-    if (fclose(sub) != 0)
+    printf("\nRebooting");
+    Sleep(400);
+    printf(".");
+    Sleep(400);
+    printf(".");
+    Sleep(400);
+    printf(".");
+    if (access("cipher_sub.exe", 0) == 0)
         {
-            printf("Failed to close file!\n");
+            system("cipher_sub.exe");
+        }
+    else
+        {
+            printf("Please check if the cipher_sub.exe is under the current path!\n");
             system("pause");
             exit(1);
         }
-    printf("Rebooting...");
-    system("cipher_sub.exe");
 }
 
 int chrctr_num(char c)
@@ -49,6 +57,7 @@ int chrctr_num(char c)
             printf("\nIllegal character detected! Ascii No.= %d, line = %d, position = %d\n", (int) c, line, bytes);
             system("pause");
             sub();
+            return -99;
         }
     else
         {
@@ -63,6 +72,7 @@ int chrctr_num(char c)
             printf("\nIllegal character detected! Ascii No.= %d, line = %d, position = %d\n", (int) c, line, bytes);
             system("pause");
             sub();
+            return -99;
         }
 }
 
@@ -193,7 +203,7 @@ void encrypt_circular()
                     num_chrctr(ciphertext_num [k]);
                 }
         }
-        //printf("Ciphertext = %s\n", ciphertext);
+    //printf("Ciphertext = %s\n", ciphertext);
 }
 
 void decrypt_circular()
@@ -243,7 +253,7 @@ int main()
 {
     //printf("%c\n", alphabet_single_line [14]);
     int op;
-    printf("Char set = %d\nCurrent key length = %d\nAll displayable ascii characters are supported\n", strlen(alphabet), key_length);
+    printf("Char set = %d, Current key length = %d\nAll displayable ascii characters are supported\n++ATTENTION++:The type of line break must be DOS(CR/LF)!\n", strlen(alphabet), key_length);
     printf("===============================================================\n1.Encrypt single line from manual input\n2.Decrypt single line from manual input\n3.Encrypt file text.txt under current path\n4.Decrypt file text_encrypted.txt under current path\n5.Exit\n===============================================================\n");
     scanf("%d", &op);
     getchar();
@@ -268,7 +278,6 @@ int main()
                 }
             encrypt_circular();
             printf("Ciphertext = %s\n", ciphertext);
-            system("pause");
             printf("\n");
             sub();
 
@@ -290,7 +299,6 @@ int main()
                 }
             decrypt_circular();
             printf("Clear text = %s\n", clr_text);
-            system("pause");
             printf("\n");
             sub();
 
@@ -348,7 +356,6 @@ int main()
                 }
             remove("text.txt");
             printf("\n\nDone.A \"text_encrypted.txt\" has been created under current path.\nThe \"text.txt\" has been deleted automatically.\n");
-            system("pause");
             printf("\n");
             sub();
         }
@@ -409,7 +416,6 @@ int main()
                 }
             //remove("text_encrypted.txt");
             printf("\n\nDone.A \"text.txt\" has been recovered under current path.\n");
-            system("pause");
             printf("\n");
             sub();
         }
