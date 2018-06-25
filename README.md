@@ -7,6 +7,8 @@ This program is based on improved Vigenere algorithm,which is capable of support
 
 How to use
 =========================
->Put the Cipher.exe and cipher_sub.exe under the same directory with the text.txt which includes the messages you wanna encrypt.
->Run the Cipher.exe and operate following the guiding menu in the program.The program will automatically generate text_encrypted.txt under the directory which the Cipher.exe is in.
->The cipher_sub.exe is the subprocess of the main program which is designed to assist the Cipher.exe, and it will automatically run after the Cipher.exe is executed.So please make sure they are under the same directory!
+>1)Put the Cipher.exe and cipher_sub.exe under the same directory with the text.txt which includes the messages you wanna encrypt.
+
+>2)Run the Cipher.exe and operate following the guiding menu in the program.The program will automatically generate text_encrypted.txt under the directory which the Cipher.exe is in.
+
+>3)The cipher_sub.exe is the subprocess of the main program which is designed to assist the Cipher.exe, and it will automatically run after the Cipher.exe is executed.So please make sure they are under the same directory!
