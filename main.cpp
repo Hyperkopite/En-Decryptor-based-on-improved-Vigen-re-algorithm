@@ -254,7 +254,7 @@ int main()
     //printf("%c\n", alphabet_single_line [14]);
     int op;
     printf("Char set = %d, Current key length = %d\nAll displayable ascii characters are supported\n++ATTENTION++:The type of line break must be DOS(CR/LF)!\n", strlen(alphabet), key_length);
-    printf("===============================================================\n1.Encrypt single line from manual input\n2.Decrypt single line from manual input\n3.Encrypt file text.txt under current path\n4.Decrypt file text_encrypted.txt under current path\n5.Exit\n===============================================================\n");
+    printf("===============================================================\n1.Encrypt single line from manual input\n2.Decrypt single line from manual input\n3.Encrypt specified file under current path\n4.Decrypt specified file under current path\n5.Exit\n===============================================================\n");
     scanf("%d", &op);
     getchar();
 
@@ -305,16 +305,25 @@ int main()
         case 3:
         {
             FILE *fp, *fp1;
-            fp = fopen("text.txt", "r+");
-            fp1 = fopen("text_encrypted.txt", "w+");
+            char filename[mx / 100], filename_encrypted[mx / 100], tmp[mx / 100];
+            system("dir");
+            printf("The name of file that need to be encrypted: ");
+            gets(filename);
+            strcpy(tmp, filename);
+            fp = fopen(filename, "r+");
             if (!fp)
                 {
-                    printf("Failed to open file!\n");
+                    printf("Failed to open the file \"%s\", please check the existence of it!\n", filename);
                     system("pause");
-                    exit(1);
+                    sub();
                 }
+            strcat(tmp, "_encrypted");
+            strcpy(filename_encrypted, tmp);
+            fp1 = fopen(filename_encrypted, "w+");
+
             printf("KEY = ");
             gets(keys);
+            printf("\nEncrypting...\n");
             fseek(fp,0,SEEK_END);
             long fp_end = ftell(fp);
             //printf("fp_end = %ld\n", fp_end);
@@ -355,23 +364,34 @@ int main()
                     exit(1);
                 }
             remove("text.txt");
-            printf("\n\nDone.A \"text_encrypted.txt\" has been created under current path.\nThe \"text.txt\" has been deleted automatically.\n");
+            printf("\n\nDone.A \"%s\" has been created under current path.\nThe \"%s\" has been deleted automatically.\n", filename_encrypted, filename);
             printf("\n");
             sub();
         }
         case 4:
         {
             FILE *fp2, *fp3;
-            fp2 = fopen("text_encrypted.txt", "r+");
-            fp3 = fopen("text.txt", "w+");
+            char filename[mx / 100], filename_decrypted[mx / 100], tmp[mx / 100];
+            system("dir");
+            printf("The name of file that need to be decrypted: ");
+            gets(filename);
+            strcpy(tmp, filename);
+            fp2 = fopen(filename, "r+");
             if (!fp2)
                 {
-                    printf("Failed to open file!\n");
+                    printf("Failed to open the file \"%s\", please check the existence of it!\n", filename);
                     system("pause");
-                    exit(1);
+                    sub();
                 }
+            for (int i = 0; i < (int) strlen(tmp) - 10; i++)
+                {
+                    filename_decrypted[i] = tmp[i];
+                }
+            fp3 = fopen(filename_decrypted, "w+");
+
             printf("KEY = ");
             gets(keys);
+            printf("\nDecrypting...\n");
             //printf("Ciphertext =\n\n");
             fseek(fp2,0,SEEK_END);
             long fp_end2 = ftell(fp2);
@@ -415,7 +435,7 @@ int main()
                     exit(1);
                 }
             //remove("text_encrypted.txt");
-            printf("\n\nDone.A \"text.txt\" has been recovered under current path.\n");
+            printf("\n\nDone.A \"%s\" has been recovered under current path.\n", filename_decrypted);
             printf("\n");
             sub();
         }
