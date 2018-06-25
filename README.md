@@ -1,9 +1,9 @@
 # En-Decryptor-based-on-improved-Vigen-re-algorithm
-Support all standard ASCII characters,I/O by manual input or .txt text file
+Support all standard displayable ASCII characters,I/O by manual input or specified text file.
 
 About this program
 =========================
-This program is based on improved Vigenere algorithm,which is capable of supporting all standard ascii characters,including '\n','\r','\t' and other special symbols.You can encrypt&decrypt messages with manual input or text files.
+This program is based on improved Vigenere algorithm,which is capable of supporting all standard displayable ascii characters,including '\n','\r','\t' and other special symbols.You can encrypt&decrypt messages with manual input or specified text files in safe way.
 
 How to use
 =========================
