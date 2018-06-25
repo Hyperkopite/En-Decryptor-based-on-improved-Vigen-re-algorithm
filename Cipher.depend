@@ -11,9 +11,11 @@
 	<string.h>
 	<math.h>
 
-1525265526 source:d:\codeblocks\works\temp\cipher\main.cpp
+1529744469 source:d:\codeblocks\works\temp\cipher\main.cpp
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<math.h>
+	<windows.h>
+	<io.h>
 
